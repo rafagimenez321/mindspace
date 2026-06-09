@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mind Space Sensorium Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#b91c1c;--red:#1552a0;--yellow:#d4930a;--green:#2e8b57;
+  --dark:#0d1b2a;--white:#fff;--light:#f4f6f9;--muted:#5a6a7a;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--dark);overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 6%;background:rgba(255,255,255,.97);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 rgba(0,0,0,.07);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--dark);text-decoration:none;letter-spacing:-.02em;display:flex;flex-direction:column;line-height:1.1}
+.logo-main{display:block;line-height:1;white-space:nowrap}
+.logo-sub{font-size:.58rem;font-weight:500;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:.18rem;display:block}
+.logo em{font-style:normal;color:var(--blue)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.84rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
+.nav-links a:hover{color:var(--dark)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--blue);border-radius:2px;transform:scaleX(0);transition:transform .2s}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{
+  background:var(--blue);color:#fff!important;
+  padding:.52rem 1.4rem;border-radius:6px;font-weight:600;font-size:.83rem;
+  box-shadow:0 2px 8px rgba(185,28,28,.3);transition:all .2s;
+}
+.nav-cta:hover{background:#991b1b!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(185,28,28,.4)!important}
+
+/* HERO */
+.hero{
+  background:linear-gradient(150deg,#f8fafc 0%,#f1f5f9 100%);
+  padding:80px 6% 0;min-height:100vh;
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+/* faixa lateral de cores do autismo */
+.hero::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--blue) 25%,var(--red) 25% 50%,var(--yellow) 50% 75%,var(--green) 75%);
+}
+.hero-puzzles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-puzzles svg{position:absolute;opacity:.05}
+.hero-puzzles svg:nth-child(1){top:-60px;right:60px;width:380px}
+.hero-puzzles svg:nth-child(2){bottom:200px;left:-60px;width:260px}
+.hero-top{
+  display:grid;grid-template-columns:1.1fr 0.9fr;
+  gap:3rem;align-items:center;flex:1;padding:3rem 0 4rem;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(185,28,28,.08);
+  border:1px solid rgba(185,28,28,.2);color:var(--blue);
+  font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:.4rem 1rem;border-radius:4px;margin-bottom:1.6rem;
+}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.hero h1{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2.2rem,4vw,3.5rem);
+  font-weight:800;color:var(--dark);line-height:1.15;letter-spacing:-.03em;margin-bottom:1.3rem;
+}
+.hero h1 span{color:var(--blue)}
+.hero-desc{font-size:.97rem;color:var(--muted);line-height:1.85;max-width:440px;margin-bottom:2.4rem}
+.hero-btns{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-yellow{
+  background:var(--blue);color:#fff;padding:.85rem 2rem;
+  border-radius:6px;font-size:.88rem;font-weight:700;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.5rem;
+  box-shadow:0 4px 20px rgba(185,28,28,.3);transition:all .2s;
+}
+.btn-yellow:hover{background:#991b1b;transform:translateY(-2px)}
+.btn-ghost{
+  background:transparent;color:var(--dark);padding:.85rem 2rem;
+  border-radius:6px;font-size:.88rem;font-weight:600;text-decoration:none;
+  border:1px solid rgba(0,0,0,.2);transition:all .2s;
+}
+.btn-ghost:hover{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.4)}
+/* pills parceiros */
+.hero-partners{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.hero-partners-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.partner-pill{background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.1);color:var(--muted);padding:.3rem .85rem;border-radius:4px;font-size:.75rem;font-weight:500}
+.partner-logo-pill{
+  background:#fff;border-radius:8px;
+  padding:.5rem 1rem;
+  display:flex;align-items:center;justify-content:center;
+  height:52px;
+}
+.partner-logo-pill img{height:34px;width:auto;object-fit:contain;display:block}
+
+/* hero direita */
+.hero-right{display:flex;flex-direction:column;gap:1rem;position:relative}
+.hero-img-frame{
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 8px 16px rgba(0,0,0,.06), 0 24px 60px rgba(0,0,0,.12);
+  border:1px solid rgba(0,0,0,.06);
+}
+.hero-img-frame img{width:100%;height:auto;display:block}
+/* 4 mini-stats em linha com cor do autismo */
+.hero-stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.h-stat{
+  border-radius:8px;padding:.9rem .7rem;text-align:center;
+  background:rgba(255,255,255,.05);border-top:3px solid;
+}
+.h-stat:nth-child(1){border-color:var(--blue)}
+.h-stat:nth-child(2){border-color:var(--red)}
+.h-stat:nth-child(3){border-color:var(--yellow)}
+.h-stat:nth-child(4){border-color:var(--green)}
+.h-stat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.4rem;font-weight:800;color:#fff;line-height:1}
+.h-stat-label{font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.25rem;letter-spacing:.03em}
+
+/* Hero image strip — full width, natural height */
+.hero-image-strip{background:rgba(0,0,0,.25);border-radius:12px 12px 0 0;overflow:hidden;margin:0 -6% -1px}
+.hero-image-strip img{width:100%;height:auto;display:block}
+
+/* LOGOS STRIP — faixa branca após hero */
+.logos-strip{
+  background:#fff;border-bottom:1px solid rgba(0,0,0,.07);
+  padding:2rem 6%;
+}
+.logos-strip-inner{
+  max-width:1160px;margin:0 auto;
+  display:flex;align-items:center;justify-content:center;gap:0;
+  flex-wrap:wrap;
+}
+.logo-item{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;
+  padding:1rem 3rem;position:relative;
+}
+.logo-item:not(:last-child)::after{
+  content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);
+  width:1px;height:40px;background:rgba(0,0,0,.1);
+}
+.logo-item img{
+  height:60px;width:auto;object-fit:contain;
+  filter:grayscale(20%);opacity:.9;transition:all .2s;
+}
+.logo-item img:hover{filter:grayscale(0);opacity:1}
+.logo-item-label{
+  font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:#94a3b8;
+}
+
+/* COLOR BAR */
+.color-bar{height:4px;background:linear-gradient(90deg,var(--blue) 25%,var(--red) 25% 50%,var(--yellow) 50% 75%,var(--green) 75%)}
+
+/* SECTIONS */
+section{scroll-margin-top:70px}
+.container{max-width:1160px;margin:0 auto;padding:0 6%}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);
+  margin-bottom:.7rem;
+}
+.eyebrow::before{content:'';width:20px;height:3px;background:var(--blue);border-radius:2px}
+h2.title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;color:var(--dark);line-height:1.25;letter-spacing:-.025em;margin-bottom:.7rem}
+h2.title em{font-style:normal;color:var(--blue);font-weight:800}
+.sub{font-size:.96rem;color:var(--muted);line-height:1.8;max-width:540px}
+
+/* ABOUT */
+#about{padding:7rem 0;background:#fff}
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-imgs{display:flex;flex-direction:column;gap:.9rem;position:relative}
+.about-imgs img{width:100%;height:auto;display:block;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,.06),0 16px 48px rgba(0,0,0,.1)}
+.about-imgs img:last-child{margin-left:2rem;margin-top:-.5rem}
+.about-text{padding-top:1rem}
+.about-text .sub{margin-bottom:1.5rem;line-height:1.85}
+.sense-list{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:1.5rem}
+.sense-chip{
+  display:flex;align-items:center;gap:.6rem;
+  background:var(--light);border-radius:8px;padding:.7rem .95rem;
+  font-size:.83rem;font-weight:600;color:var(--dark);
+  border:1px solid rgba(0,0,0,.06);transition:all .2s;
+}
+.sense-chip:hover{background:#fff;border-color:rgba(185,28,28,.2);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+
+/* GALLERY */
+#gallery{padding:7rem 0;background:var(--light)}
+.gallery-tabs{display:flex;gap:.45rem;margin:2rem 0;flex-wrap:wrap}
+.gallery-custom-note{display:flex;align-items:flex-start;gap:.65rem;background:#fff7f7;border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;margin:1.5rem 0 .5rem;color:var(--dark);font-size:.88rem;line-height:1.5}
+.gallery-custom-note svg{color:var(--blue);flex-shrink:0;margin-top:2px}
+.gallery-custom-note strong{color:var(--blue)}
+.g-tab{
+  padding:.52rem 1.3rem;border-radius:6px;font-size:.83rem;font-weight:600;cursor:pointer;
+  border:1.5px solid rgba(0,0,0,.1);background:#fff;color:var(--muted);transition:all .2s;
+}
+.g-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 2px 10px rgba(185,28,28,.25)}
+.g-tab:hover:not(.active){border-color:var(--blue);color:var(--blue)}
+.g-panel{display:none}
+.g-panel.active{display:flex;flex-direction:column;gap:1rem}
+
+/* Images — mesma altura, sem crop */
+.g-img-natural{
+  overflow:hidden;
+  background:transparent;
+  aspect-ratio:4/3;
+  width:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+.g-img-natural img{
+  width:100%;height:100%;
+  display:block;
+  object-fit:contain;
+}
+/* imagem única (interior) — mesmo tamanho das externas */
+.g-panel .g-img-natural.g-single-img{
+  aspect-ratio:4/3;
+  width:380px;
+}
+.g-grid2{display:grid;grid-template-columns:380px 380px;gap:1rem;align-items:start}
+.g-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.g-caption{font-size:.78rem;color:var(--muted);padding:.6rem .2rem;font-style:italic}
+.gallery-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.g-tag{background:#fff;border:1px solid rgba(0,0,0,.08);padding:.3rem .85rem;border-radius:4px;font-size:.78rem;font-weight:500;color:var(--muted)}
+
+/* FEATURES */
+#features{padding:7rem 0;background:#fff}
+.features-head{text-align:center;margin-bottom:3.5rem}
+.features-head .sub{margin:0 auto}
+.f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.f-card{
+  border-radius:12px;padding:2rem;border:1.5px solid rgba(0,0,0,.07);
+  transition:all .25s;
+}
+.f-card:hover{border-color:var(--blue);box-shadow:0 8px 32px rgba(0,91,170,.1);transform:translateY(-4px)}
+.f-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.f-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:.45rem}
+.f-desc{font-size:.87rem;color:var(--muted);line-height:1.65}
+
+/* HOW */
+#how{padding:7rem 0;background:var(--light)}
+.how-head{text-align:center;margin-bottom:4.5rem}
+.how-head .eyebrow{color:var(--blue)}
+.how-head .eyebrow::before{background:var(--blue)}
+.how-head h2{color:var(--dark)}
+.how-head .sub{color:var(--muted);margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem;position:relative}
+.steps::before{
+  content:'';position:absolute;top:22px;left:calc(12.5% + 22px);right:calc(12.5% + 22px);
+  height:1px;background:linear-gradient(90deg,var(--blue),var(--red),var(--yellow),var(--green));opacity:.35;
+}
+.step{text-align:center}
+.step-dot{
+  width:44px;height:44px;border-radius:50%;margin:0 auto 1.3rem;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:700;color:#fff;position:relative;z-index:1;
+  box-shadow:0 4px 14px rgba(0,0,0,.15);
+}
+.step:nth-child(1) .step-dot{background:var(--blue)}
+.step:nth-child(2) .step-dot{background:var(--red)}
+.step:nth-child(3) .step-dot{background:var(--yellow)}
+.step:nth-child(4) .step-dot{background:var(--green)}
+.step-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.5rem}
+.step-desc{font-size:.82rem;color:var(--muted);line-height:1.7}
+
+/* FOR WHO */
+#forwho{padding:7rem 0;background:#fff}
+.fw-head{text-align:center;margin-bottom:3.5rem}
+.fw-head .sub{margin:0 auto}
+.fw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.fw-card:nth-child(4n+1) .fw-icon-box{background:rgba(185,28,28,.07)}
+.fw-card:nth-child(4n+2) .fw-icon-box{background:rgba(185,28,28,.05)}
+.fw-card:nth-child(4n+3) .fw-icon-box{background:rgba(185,28,28,.06)}
+.fw-card:nth-child(4n) .fw-icon-box{background:rgba(185,28,28,.05)}
+.fw-card{
+  border-radius:10px;padding:1.8rem 1.5rem;border:1px solid rgba(0,0,0,.07);
+  transition:all .25s;text-align:center;background:#fff;
+}
+.fw-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(185,28,28,.08);border-color:rgba(185,28,28,.2)}
+.fw-icon-box{
+  width:52px;height:52px;border-radius:10px;margin:0 auto 1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.fw-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:700;color:var(--dark);margin-bottom:.45rem}
+.fw-desc{font-size:.82rem;color:var(--muted);line-height:1.65}
+
+/* IMPACT */
+#impact{padding:5rem 0;background:var(--light)}
+.impact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.imp-card{
+  border-radius:12px;padding:2.2rem 1.5rem;text-align:center;
+  border:1px solid rgba(0,0,0,.06);transition:transform .25s;
+}
+.imp-card:hover{transform:translateY(-4px)}
+.imp-card:nth-child(1){background:rgba(0,91,170,.06)}
+.imp-card:nth-child(2){background:rgba(232,49,42,.05)}
+.imp-card:nth-child(3){background:rgba(245,168,0,.07)}
+.imp-card:nth-child(4){background:rgba(58,170,53,.06)}
+.imp-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.8rem;font-weight:900;line-height:1;margin-bottom:.3rem}
+.imp-card:nth-child(1) .imp-num{color:var(--blue)}
+.imp-card:nth-child(2) .imp-num{color:var(--red)}
+.imp-card:nth-child(3) .imp-num{color:#8a6d00}
+.imp-card:nth-child(4) .imp-num{color:var(--green)}
+.imp-label{font-size:.82rem;font-weight:700;color:var(--dark);text-transform:uppercase;letter-spacing:.04em}
+.imp-sub{font-size:.76rem;color:var(--muted);margin-top:.25rem}
+
+/* TESTIMONIALS */
+#testimonials{padding:7rem 0;background:#fff}
+.test-head{text-align:center;margin-bottom:3.5rem}
+.test-head .sub{margin:0 auto}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.test-card{
+  background:var(--light);border-radius:12px;padding:1.8rem;
+  border:1px solid rgba(0,0,0,.06);display:flex;flex-direction:column;gap:.9rem;
+  transition:all .25s;
+}
+.test-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08);background:#fff}
+.test-stars{color:var(--yellow);font-size:.9rem}
+.test-text{font-size:.88rem;color:var(--muted);line-height:1.75;font-style:italic;flex:1}
+.test-author{display:flex;align-items:center;gap:.75rem;border-top:1px solid rgba(0,0,0,.06);padding-top:.9rem;margin-top:auto}
+.t-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:900;color:#fff;flex-shrink:0}
+.t-name{font-size:.85rem;font-weight:700;color:var(--dark)}
+.t-role{font-size:.73rem;color:var(--muted)}
+.t-chip{margin-left:auto;font-size:.68rem;font-weight:700;padding:.2rem .65rem;border-radius:4px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;background:rgba(0,91,170,.08);color:var(--blue)}
+
+/* CTA */
+#contact{padding:7rem 0;background:#fff}
+.cta-inner{
+  background:var(--dark);border-radius:20px;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;
+  padding:5rem;position:relative;overflow:hidden;
+}
+.cta-inner::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue) 25%,var(--red) 25% 50%,var(--yellow) 50% 75%,var(--green) 75%);
+}
+.cta-inner::after{
+  content:'';position:absolute;bottom:-80px;right:-80px;width:300px;height:300px;
+  border-radius:50%;background:rgba(185,28,28,.06);
+  pointer-events:none;
+}
+.cta-left h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.1rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:1rem;letter-spacing:-.025em}
+.cta-left h2 em{font-style:normal;color:var(--blue)}
+.cta-left p{font-size:.93rem;color:rgba(255,255,255,.42);line-height:1.75;margin-bottom:2rem}
+.cta-btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn-w{background:#fff;color:var(--dark);padding:.85rem 1.8rem;border-radius:6px;font-size:.88rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:all .2s}
+.btn-w:hover{background:#f5f5f5;transform:translateY(-1px)}
+.btn-wa{background:#25D366;color:#fff;padding:.85rem 1.8rem;border-radius:6px;font-size:.88rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .2s;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+.btn-wa:hover{background:#1abe5a;transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,.4)}
+.cta-right{display:flex;flex-direction:column;gap:1.4rem;justify-content:center}
+.cta-row{display:flex;align-items:center;gap:1rem}
+.cta-icon{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-icon svg{width:17px;height:17px;stroke:rgba(255,255,255,.55);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cta-lbl{font-size:.68rem;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.1rem}
+.cta-val{font-size:.9rem;color:rgba(255,255,255,.8);font-weight:500}
+
+/* FOOTER */
+footer{background:var(--dark);padding:4rem 6% 2.5rem;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem}
+.f-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;text-decoration:none;display:block;margin-bottom:.7rem;letter-spacing:-.02em}
+.f-logo em{font-style:normal;color:var(--blue)}
+.f-desc{font-size:.81rem;color:rgba(255,255,255,.28);line-height:1.7;margin-bottom:1.2rem}
+.f-chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.f-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);padding:.25rem .7rem;border-radius:4px;font-size:.71rem;font-weight:500}
+.f-head{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.22);margin-bottom:1rem}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.f-links a{font-size:.82rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--blue)}
+.f-bottom{background:var(--dark);border-top:1px solid rgba(255,255,255,.06);padding:1.2rem 6%;display:flex;justify-content:space-between;align-items:center;font-size:.73rem;color:rgba(255,255,255,.18)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.reveal.v{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav .nav-links{display:none}
+  .hero-top{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .about-wrap{grid-template-columns:1fr}
+  .f-grid,.fw-grid,.steps,.test-grid{grid-template-columns:1fr 1fr}
+  .impact-grid{grid-template-columns:1fr 1fr}
+  .cta-inner{grid-template-columns:1fr;padding:3rem 2rem;gap:2.5rem}
+  footer{grid-template-columns:1fr 1fr}
+  .g-grid2,.g-grid3{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .fw-grid,.steps,.test-grid{grid-template-columns:1fr}
+  .impact-grid{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:2.4rem}
+  footer{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#top" class="logo"><span class="logo-main">Mind <em>Space</em></span><span class="logo-sub">Sensorium Experience</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#gallery">Galeria</a></li>
+    <li><a href="#minecraft">Minecraft Education</a></li>
+    <li><a href="#how">Como funciona</a></li>
+    <li><a href="#contact" class="nav-cta">Fale conosco</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <!-- puzzle SVG decorations -->
+  <div class="hero-puzzles">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="top:-40px;right:-40px;width:420px">
+      <path fill="white" d="M60,20 Q65,10 70,20 L90,20 L90,40 Q100,35 100,45 Q100,55 90,50 L90,80 L70,80 Q65,90 60,80 L40,80 L40,50 Q30,55 30,45 Q30,35 40,40 L40,20 Z"/>
+      <path fill="white" d="M120,20 Q125,10 130,20 L150,20 L150,40 Q160,35 160,45 Q160,55 150,50 L150,80 L130,80 Q125,90 120,80 L100,80 L100,50 Q90,55 90,45 Q90,35 100,40 L100,20 Z" opacity=".6"/>
+      <path fill="white" d="M60,90 Q65,80 70,90 L90,90 L90,110 Q100,105 100,115 Q100,125 90,120 L90,150 L70,150 Q65,160 60,150 L40,150 L40,120 Q30,125 30,115 Q30,105 40,110 L40,90 Z" opacity=".4"/>
+    </svg>
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="bottom:180px;left:-60px;width:280px">
+      <path fill="white" d="M60,20 Q65,10 70,20 L90,20 L90,40 Q100,35 100,45 Q100,55 90,50 L90,80 L70,80 Q65,90 60,80 L40,80 L40,50 Q30,55 30,45 Q30,35 40,40 L40,20 Z"/>
+    </svg>
+  </div>
+
+  <div class="hero-top container" style="padding-left:0;padding-right:0;max-width:100%">
+    <div>
+      <div class="hero-badge">Cabine Sensorial Modular · TEA</div>
+      <h1>Um espaço onde cada<br>criança pode <span>florescer</span></h1>
+      <p class="hero-desc">Cabine sensorial modular criada para apoiar crianças com autismo — unindo terapia, Minecraft Education e tecnologia em um ambiente seguro e acolhedor.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-yellow">Fale com o nosso time →</a>
+        <a href="#gallery" class="btn-ghost">Ver galeria</a>
+      </div>
+      <div class="hero-partners">
+        <span class="hero-partners-label">Parceiros</span>
+        <div class="partner-logo-pill">
+          <img src="thumbnail_Logo AlertEdu.jpg" alt="AlertEdu"/>
+        </div>
+        <div class="partner-logo-pill">
+          <img src="logo minecraft for education.png" alt="Minecraft Education"/>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-frame">
+        <img src="Imagem Cabine.jpeg" alt="Cabine Mind Space"/>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="color-bar"></div>
+
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-wrap">
+      <div class="about-imgs reveal">
+        <img src="Imagem Conteiner.jpeg" alt="Contêiner Mind Space — vista externa"/>
+        <img src="Imagem Interna Conteiner.jpeg" alt="Interior do Contêiner Mind Space"/>
+      </div>
+      <div class="about-text reveal">
+        <div class="eyebrow">Sobre o projeto</div>
+        <h2 class="title">Um ambiente feito para <em>cada sentido</em></h2>
+        <p class="sub">O Mind Space Sensorium Experience é uma cabine sensorial modular desenvolvida para pessoas com Transtorno do Espectro Autista. Reúne terapia, educação e regulação emocional em um espaço acolhedor onde recursos sensoriais e tecnologia interativa trabalham juntos.</p>
+        <p class="sub" style="margin-top:1rem">Por meio do <strong>Minecraft Education</strong>, participantes exploram, criam e desenvolvem habilidades cognitivas e sociais em um espaço seguro, previsível e estimulante.</p>
+        <div class="sense-list">
+          <div class="sense-chip">👁️ Visão</div>
+          <div class="sense-chip">👂 Audição</div>
+          <div class="sense-chip">✋ Tato</div>
+          <div class="sense-chip">💡 Luz LED</div>
+          <div class="sense-chip">🌀 Movimento</div>
+          <div class="sense-chip">⚖️ Equilíbrio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Galeria</div>
+      <h2 class="title">Conheça o Mind Space <em>por dentro e por fora</em></h2>
+    </div>
+    <div class="gallery-custom-note reveal">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+      <span>O design e o layout de cada cabine ou contêiner é <strong>personalizado para cada cliente</strong>, adaptando cores, acabamentos e recursos às necessidades do espaço.</span>
+    </div>
+    <div class="gallery-tabs reveal">
+      <button class="g-tab active" onclick="showTab('cabine',this)">Cabine</button>
+      <button class="g-tab" onclick="showTab('container',this)">Contêiner</button>
+      <button class="g-tab" onclick="showTab('int-cabine',this)">Interior — Cabine</button>
+      <button class="g-tab" onclick="showTab('int-container',this)">Interior — Contêiner</button>
+    </div>
+
+    <div class="g-panel active" id="tab-cabine">
+      <div class="g-grid2">
+        <div>
+          <div class="g-img-natural"><img src="Imagem Cabine.jpeg" alt="Cabine Mind Space — frontal"/></div>
+          <p class="g-caption">Vista frontal — logo Mind Space e painéis de quebra-cabeça</p>
+        </div>
+        <div>
+          <div class="g-img-natural"><img src="360 cabine.png" alt="Cabine Mind Space — 6 ângulos"/></div>
+          <p class="g-caption">Visão 360° — 6 ângulos externos da cabine com painéis coloridos</p>
+        </div>
+      </div>
+      <div class="gallery-tags">
+        <span class="g-tag">🧩 Painéis puzzle coloridos</span>
+        <span class="g-tag">🚪 Vidro temperado</span>
+        <span class="g-tag">📦 Modular e portátil</span>
+        <span class="g-tag">🏫 Escolas e clínicas</span>
+      </div>
+    </div>
+
+    <div class="g-panel" id="tab-container">
+      <div class="g-grid2">
+        <div>
+          <div class="g-img-natural"><img src="Imagem Conteiner.jpeg" alt="Contêiner Mind Space — frontal"/></div>
+          <p class="g-caption">Vista frontal — contêiner ao ar livre com portas de vidro e painéis puzzle</p>
+        </div>
+        <div>
+          <div class="g-img-natural"><img src="360 container.png" alt="Contêiner Mind Space — 4 ângulos"/></div>
+          <p class="g-caption">Visão 360° — 4 ângulos externos do contêiner</p>
+        </div>
+      </div>
+      <div class="gallery-tags">
+        <span class="g-tag">🏗️ Estrutura contêiner</span>
+        <span class="g-tag">🌿 Ao ar livre</span>
+        <span class="g-tag">🚪 Portas duplas de vidro</span>
+        <span class="g-tag">👥 Grupos maiores</span>
+        <span class="g-tag">🌦️ Resistente às intempéries</span>
+      </div>
+    </div>
+
+    <div class="g-panel" id="tab-int-cabine">
+      <div class="g-img-natural g-single-img">
+        <img src="Imagem Interna Cabine.jpeg" alt="Interior da Cabine Mind Space"/>
+      </div>
+      <p class="g-caption">Interior da Cabine — tela Minecraft Education, tapete sensorial, rede balanço, painéis táteis e puff de fibra óptica</p>
+      <div class="gallery-tags">
+        <span class="g-tag">🖥️ Minecraft Education</span>
+        <span class="g-tag">🌈 Tapete sensorial</span>
+        <span class="g-tag">🕸️ Rede balanço</span>
+        <span class="g-tag">💡 LED perimetral</span>
+        <span class="g-tag">🎨 Painéis táteis</span>
+        <span class="g-tag">🪑 Puff fibra óptica</span>
+      </div>
+    </div>
+
+    <div class="g-panel" id="tab-int-container">
+      <div class="g-img-natural g-single-img">
+        <img src="Imagem Interna Conteiner.jpeg" alt="Interior do Contêiner Mind Space"/>
+      </div>
+      <p class="g-caption">Interior do Contêiner — 2 telas Minecraft Education, parede de escalada, hammock, almofadas e tapete sensorial</p>
+      <div class="gallery-tags">
+        <span class="g-tag">🖥️ 2 telas Minecraft</span>
+        <span class="g-tag">🧗 Parede de escalada</span>
+        <span class="g-tag">🌈 Tapete sensorial</span>
+        <span class="g-tag">🐋 Almofadas macias</span>
+        <span class="g-tag">💡 LED azul</span>
+        <span class="g-tag">🕸️ Hammock suspenso</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<!-- MINECRAFT EDUCATION -->
+<section id="minecraft" style="background:#f0f6ff;padding:5rem 0">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:3rem">
+      <div class="eyebrow" style="justify-content:center">Tecnologia &amp; Autismo</div>
+      <h2 class="title">Minecraft Education <em>e o TEA</em></h2>
+      <p class="sub" style="max-width:640px;margin:0 auto">O Minecraft Education vai além do jogo — é uma ferramenta terapêutica reconhecida mundialmente para apoiar crianças com Transtorno do Espectro Autista.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem">
+      <div style="background:#fff;border-radius:14px;padding:2rem;border-left:4px solid var(--blue)">
+        <div style="font-size:2.2rem;font-weight:900;color:var(--blue);font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:.4rem">78%</div>
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.4rem">Maior participação verbal</div>
+        <p style="font-size:.85rem;color:var(--muted);margin:0">Educadores relataram aumento na participação verbal de crianças com autismo durante atividades com Minecraft Education.</p>
+      </div>
+      <div style="background:#fff;border-radius:14px;padding:2rem;border-left:4px solid var(--green)">
+        <div style="font-size:2.2rem;font-weight:900;color:var(--green);font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:.4rem">100%</div>
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.4rem">Engajamento nas sessões</div>
+        <p style="font-size:.85rem;color:var(--muted);margin:0">Participantes do programa de terapia em grupo com Minecraft demonstraram engajamento total durante as sessões colaborativas.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:3rem">
+      <div class="reveal" style="background:#fff;border-radius:14px;padding:1.6rem">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(0,91,170,.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div style="font-weight:700;margin-bottom:.5rem">Habilidades Sociais</div>
+        <p style="font-size:.85rem;color:var(--muted);margin:0">O ambiente colaborativo do Minecraft permite que crianças autistas pratiquem interações sociais de forma segura e sem pressão, construindo confiança real com os pares.</p>
+      </div>
+      <div class="reveal" style="background:#fff;border-radius:14px;padding:1.6rem">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(58,170,53,.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div style="font-weight:700;margin-bottom:.5rem">Comunicação</div>
+        <p style="font-size:.85rem;color:var(--muted);margin:0">Sessões de terapia em grupo com Minecraft promovem comunicação verbal e não-verbal, trabalho em equipe e resolução de problemas de forma natural e envolvente.</p>
+      </div>
+      <div class="reveal" style="background:#fff;border-radius:14px;padding:1.6rem">
+        <div style="width:44px;height:44px;border-radius:10px;background:rgba(232,49,42,.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div style="font-weight:700;margin-bottom:.5rem">Regulação Emocional</div>
+        <p style="font-size:.85rem;color:var(--muted);margin:0">O ambiente estruturado e previsível do jogo ajuda crianças a gerenciar ansiedade, desenvolver consciência emocional e lidar com mudanças de forma gradual.</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="background:var(--dark);border-radius:16px;padding:2.5rem;display:flex;gap:2rem;align-items:flex-start">
+      <div style="flex-shrink:0;width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div>
+        <p style="color:rgba(255,255,255,.9);font-style:italic;font-size:1rem;margin:0 0 1rem">"Combinando a estrutura da terapia em grupo com as possibilidades infinitas do Minecraft, criamos uma abordagem única para apoiar crianças no espectro autista — construindo relacionamentos autênticos e confiança social em um ambiente de baixa pressão."</p>
+        <div style="font-size:.82rem;color:rgba(255,255,255,.5);font-weight:600">Minecraft Education — Autism Group Therapy Program</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="https://education.minecraft.net/en-us/blog/autism-group-therapy" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--blue);color:#fff;padding:.85rem 2rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:.95rem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Ver pesquisa completa
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="container">
+    <div class="how-head reveal">
+      <div class="eyebrow">Como funciona</div>
+      <h2 class="title">Quatro etapas, <em>um mundo de evolução</em></h2>
+      <p class="sub">Uma jornada previsível, segura e enriquecedora a cada sessão.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-dot">01</div>
+        <div class="step-title">Entrar</div>
+        <p class="step-desc">Ambiente calmo e previsível ajustado para a regulação sensorial de cada participante.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">02</div>
+        <div class="step-title">Explorar</div>
+        <p class="step-desc">Painéis táteis, luzes, balanço e texturas em ritmo próprio, sem pressão.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">03</div>
+        <div class="step-title">Aprender</div>
+        <p class="step-desc">Atividades guiadas com Minecraft Education — cognitivas e sociais, sempre estruturadas.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot">04</div>
+        <div class="step-title">Evoluir</div>
+        <p class="step-desc">Progresso mensurável a cada sessão — resultados reais que se refletem no dia a dia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section id="forwho">
+  <div class="container">
+    <div class="fw-head reveal">
+      <div class="eyebrow">Para quem é</div>
+      <h2 class="title">Feito para os lugares que <em>cuidam</em></h2>
+      <p class="sub" style="max-width:580px;margin:.8rem auto 0">O Mind Space é modular e se adapta a qualquer ambiente — basta espaço e vontade de fazer a diferença.</p>
+    </div>
+    <div class="fw-grid">
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#005baa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="fw-title">Escolas</div>
+        <p class="fw-desc">Salas de recursos, educação especial e inclusiva em todos os níveis de ensino.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e8312a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="fw-title">Centros de Terapia</div>
+        <p class="fw-desc">TO, fonoaudiologia, ABA e psicoterapia em um ambiente sensorial inovador.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8a6d00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="fw-title">Clínicas</div>
+        <p class="fw-desc">Atendimento pediátrico, neurológico e do desenvolvimento infantil.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3aaa35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <div class="fw-title">ONGs e Fundações</div>
+        <p class="fw-desc">Organizações que apoiam a comunidade autista e promovem a neurodiversidade.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#005baa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <div class="fw-title">Hospitais</div>
+        <p class="fw-desc">Alas pediátricas, humanização hospitalar e suporte a pacientes neurodivergentes.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e8312a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="fw-title">Universidades</div>
+        <p class="fw-desc">Núcleos de inclusão, pesquisa aplicada e suporte a estudantes com TEA.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8a6d00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="fw-title">Empresas</div>
+        <p class="fw-desc">Programas de inclusão, bem-estar e suporte a colaboradores neurodivergentes.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3aaa35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </div>
+        <div class="fw-title">Eventos e Feiras</div>
+        <p class="fw-desc">Espaço sensorial itinerante para conferências, feiras de saúde e eventos inclusivos.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#005baa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="fw-title">Centros Comunitários</div>
+        <p class="fw-desc">Espaços públicos e associações de bairro que atendem famílias em situação de vulnerabilidade.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e8312a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="fw-title">Prefeituras</div>
+        <p class="fw-desc">Políticas públicas de inclusão com instalação em praças, parques e centros de saúde.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8a6d00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+        <div class="fw-title">APAEs e Associações</div>
+        <p class="fw-desc">Entidades especializadas no atendimento de pessoas com deficiência intelectual e autismo.</p>
+      </div>
+      <div class="fw-card reveal">
+        <div class="fw-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3aaa35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+        </div>
+        <div class="fw-title">Clínicas Esportivas</div>
+        <p class="fw-desc">Suporte à regulação sensorial e desenvolvimento motor em programas de esporte adaptado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<!-- CTA -->
+<section id="contact">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="cta-left">
+        <h2>Leve o Mind Space para o seu <em>espaço</em></h2>
+        <p>Fale com nosso time e descubra como instalar uma cabine ou contêiner Sensorium Experience no seu espaço — seja escola, clínica, hospital, empresa ou qualquer ambiente que precise de um lugar de acolhimento. Atendemos em todo o Brasil.</p>
+        <div class="cta-btns">
+          <a href="mailto:contato@mindspace.com.br?subject=Solicita%C3%A7%C3%A3o%20Mind%20Space" class="btn-w">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Enviar e-mail
+          </a>
+          <a href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20Mind%20Space." class="btn-wa">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="cta-right">
+        <div class="cta-row">
+          <div class="cta-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="cta-lbl">Email</div><div class="cta-val">contato@mindspace.com.br</div></div>
+        </div>
+        <div class="cta-row">
+          <div class="cta-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="cta-lbl">WhatsApp</div><div class="cta-val">+55 (00) 00000-0000</div></div>
+        </div>
+        <div class="cta-row">
+          <div class="cta-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="cta-lbl">Cobertura</div><div class="cta-val">Todo o Brasil</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <a href="#top" class="f-logo">Mind <em>Space</em></a>
+    <p class="f-desc">Cabines sensoriais modulares para terapia, educação e regulação emocional. Feitas para a neurodiversidade.</p>
+    <div class="f-chips">
+      <span class="f-chip">AlertEdu</span>
+      <span class="f-chip">Minecraft Education</span>
+    </div>
+  </div>
+  <div>
+    <div class="f-head">Navegar</div>
+    <ul class="f-links">
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#gallery">Galeria</a></li>
+      <li><a href="#minecraft">Minecraft Education</a></li>
+      <li><a href="#how">Como funciona</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="f-head">Contato</div>
+    <ul class="f-links">
+      <li><a href="mailto:contato@mindspace.com.br">contato@mindspace.com.br</a></li>
+      <li><a href="https://wa.me/5500000000000">WhatsApp</a></li>
+      <li><a href="#contact">Fale com o nosso time</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="f-bottom">
+  <span>© 2026 Mind Space Sensorium Experience. Todos os direitos reservados.</span>
+  <span>Feito para a neurodiversidade.</span>
+</div>
+
+<script>
+// Nav scroll class
+const nav=document.querySelector('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+
+// Reveal animation
+const io=new IntersectionObserver(entries=>entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('v'),i*80);io.unobserve(e.target)}}),{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Gallery tabs
+function showTab(id,btn){
+  document.querySelectorAll('.g-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.g-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+</script>
+</body>
+</html>
