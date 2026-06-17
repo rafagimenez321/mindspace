@@ -9,7 +9,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --blue:#b91c1c;--red:#1552a0;--yellow:#d4930a;--green:#2e8b57;
+  --blue:#29ABE2;--red:#1552a0;--yellow:#d4930a;--green:#2e8b57;
   --dark:#0d1b2a;--white:#fff;--light:#f4f6f9;--muted:#5a6a7a;
 }
 html{scroll-behavior:smooth}
@@ -25,10 +25,8 @@ nav{
   transition:box-shadow .3s;
 }
 nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.08)}
-.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800;color:var(--dark);text-decoration:none;letter-spacing:-.02em;display:flex;flex-direction:column;line-height:1.1}
-.logo-main{display:block;line-height:1;white-space:nowrap}
-.logo-sub{font-size:.58rem;font-weight:500;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:.18rem;display:block}
-.logo em{font-style:normal;color:var(--blue)}
+.logo{text-decoration:none;display:flex;align-items:center}
+.logo img{height:72px;width:auto;display:block}
 .nav-links{display:flex;gap:2rem;list-style:none}
 .nav-links a{font-size:.84rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;position:relative}
 .nav-links a:hover{color:var(--dark)}
@@ -37,9 +35,9 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.08)}
 .nav-cta{
   background:var(--blue);color:#fff!important;
   padding:.52rem 1.4rem;border-radius:6px;font-weight:600;font-size:.83rem;
-  box-shadow:0 2px 8px rgba(185,28,28,.3);transition:all .2s;
+  box-shadow:0 2px 8px rgba(41,171,226,.3);transition:all .2s;
 }
-.nav-cta:hover{background:#991b1b!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(185,28,28,.4)!important}
+.nav-cta:hover{background:#1A8FBD!important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(41,171,226,.4)!important}
 
 /* HERO */
 .hero{
@@ -81,7 +79,7 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.08)}
   display:inline-flex;align-items:center;gap:.5rem;
   box-shadow:0 4px 20px rgba(185,28,28,.3);transition:all .2s;
 }
-.btn-yellow:hover{background:#991b1b;transform:translateY(-2px)}
+.btn-yellow:hover{background:#1A8FBD;transform:translateY(-2px)}
 .btn-ghost{
   background:transparent;color:var(--dark);padding:.85rem 2rem;
   border-radius:6px;font-size:.88rem;font-weight:600;text-decoration:none;
@@ -358,8 +356,8 @@ h2.title em{font-style:normal;color:var(--blue);font-weight:800}
 
 /* FOOTER */
 footer{background:var(--dark);padding:4rem 6% 2.5rem;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem}
-.f-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;text-decoration:none;display:block;margin-bottom:.7rem;letter-spacing:-.02em}
-.f-logo em{font-style:normal;color:var(--blue)}
+.f-logo{text-decoration:none;display:block;margin-bottom:.7rem}
+.f-logo img{height:60px;width:auto;display:block;filter:brightness(0) invert(1)}
 .f-desc{font-size:.81rem;color:rgba(255,255,255,.28);line-height:1.7;margin-bottom:1.2rem}
 .f-chips{display:flex;gap:.4rem;flex-wrap:wrap}
 .f-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.35);padding:.25rem .7rem;border-radius:4px;font-size:.71rem;font-weight:500}
@@ -397,7 +395,7 @@ footer{background:var(--dark);padding:4rem 6% 2.5rem;display:grid;grid-template-
 
 <!-- NAV -->
 <nav>
-  <a href="#top" class="logo"><span class="logo-main">Mind <em>Space</em></span><span class="logo-sub">Sensorium Experience</span></a>
+  <a href="#top" class="logo"><img src="logo mind space.jpeg" alt="Mind Space"/></a>
   <ul class="nav-links">
     <li><a href="#about">Sobre</a></li>
     <li><a href="#gallery">Galeria</a></li>
@@ -423,7 +421,6 @@ footer{background:var(--dark);padding:4rem 6% 2.5rem;display:grid;grid-template-
 
   <div class="hero-top container" style="padding-left:0;padding-right:0;max-width:100%">
     <div>
-      <div class="hero-badge">Cabine Sensorial Modular · TEA e demais neurodivergências</div>
       <h1>Um espaço onde cada<br>criança pode <span>evoluir</span></h1>
       <p class="hero-desc">Cabine sensorial modular criada para apoiar crianças com autismo — unindo acomodação sensorial, Minecraft Education e tecnologia em um ambiente seguro e acolhedor.</p>
       <div class="hero-btns">
@@ -792,7 +789,7 @@ footer{background:var(--dark);padding:4rem 6% 2.5rem;display:grid;grid-template-
 <!-- FOOTER -->
 <footer>
   <div>
-    <a href="#top" class="f-logo">Mind <em>Space</em></a>
+    <a href="#top" class="f-logo"><img src="logo mind space.jpeg" alt="Mind Space"/></a>
     <p class="f-desc">Cabines sensoriais modulares para terapia, educação e regulação emocional. Feitas para a neurodiversidade.</p>
     <div class="f-chips">
       <span class="f-chip">AlertEdu</span>
