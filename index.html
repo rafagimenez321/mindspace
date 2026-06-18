@@ -13,8 +13,9 @@
   --blue:#29ABE2;--red:#1552a0;--yellow:#d4930a;--green:#2e8b57;
   --dark:#0d1b2a;--white:#fff;--light:#f4f6f9;--muted:#5a6a7a;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:'Inter',sans-serif;color:var(--dark);overflow-x:hidden}
+img{max-width:100%;height:auto}
 
 /* NAV */
 nav{
@@ -216,9 +217,10 @@ h2.title em{font-style:normal;color:var(--blue);font-weight:800}
 /* imagem única (interior) — mesmo tamanho das externas */
 .g-panel .g-img-natural.g-single-img{
   aspect-ratio:4/3;
-  width:380px;
+  width:100%;
+  max-width:380px;
 }
-.g-grid2{display:grid;grid-template-columns:380px 380px;gap:1rem;align-items:start}
+.g-grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
 .g-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
 .g-caption{font-size:.78rem;color:var(--muted);padding:.6rem .2rem;font-style:italic}
 .gallery-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
@@ -372,23 +374,51 @@ footer{background:var(--dark);padding:4rem 6% 2.5rem;display:grid;grid-template-
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
 .reveal.v{opacity:1;transform:none}
 
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;z-index:200}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* MOBILE MENU */
+.mobile-menu{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(255,255,255,.98);z-index:150;
+  flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1.3rem;font-weight:700;color:var(--dark);text-decoration:none}
+.mobile-menu .nav-cta{background:var(--blue);color:#fff!important;padding:.85rem 2.5rem;border-radius:8px}
+
 /* RESPONSIVE */
 @media(max-width:900px){
+  .hamburger{display:flex}
   nav .nav-links{display:none}
   .hero-top{grid-template-columns:1fr}
   .hero-right{display:none}
   .about-wrap{grid-template-columns:1fr}
+  .about-imgs img:last-child{margin-left:0}
   .f-grid,.fw-grid,.steps,.test-grid{grid-template-columns:1fr 1fr}
   .impact-grid{grid-template-columns:1fr 1fr}
   .cta-inner{grid-template-columns:1fr;padding:3rem 2rem;gap:2.5rem}
   footer{grid-template-columns:1fr 1fr}
   .g-grid2,.g-grid3{grid-template-columns:1fr}
+  .logo-item{padding:.8rem 1.5rem}
 }
 @media(max-width:600px){
-  .fw-grid,.steps,.test-grid{grid-template-columns:1fr}
+  .fw-grid,.steps,.test-grid,.f-grid{grid-template-columns:1fr}
   .impact-grid{grid-template-columns:1fr 1fr}
-  .hero h1{font-size:2.4rem}
+  .hero h1{font-size:2rem}
+  .hero-desc{font-size:.9rem}
   footer{grid-template-columns:1fr}
+  .cta-inner{padding:2rem 1.2rem}
+  section{padding-left:0;padding-right:0}
+  .container{padding:0 5%}
+  #about,#gallery,#features,#how,#forwho,#impact,#testimonials,#contact{padding:4rem 0}
+  .sense-list{grid-template-columns:1fr 1fr}
+  .g-grid2{grid-template-columns:1fr}
+  .hero-partners{flex-wrap:wrap;gap:.5rem}
 }
 </style>
 </head>
@@ -404,7 +434,19 @@ footer{background:var(--dark);padding:4rem 6% 2.5rem;display:grid;grid-template-
     <li><a href="#how">Como funciona</a></li>
     <li><a href="#contact" class="nav-cta">Fale conosco</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">Sobre</a>
+  <a href="#gallery" class="mobile-link">Galeria</a>
+  <a href="#minecraft" class="mobile-link">Minecraft Education</a>
+  <a href="#how" class="mobile-link">Como funciona</a>
+  <a href="#contact" class="nav-cta mobile-link">Fale conosco</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="top">
@@ -836,6 +878,20 @@ function showTab(id,btn){
   btn.classList.add('active');
   document.getElementById('tab-'+id).classList.add('active');
 }
+
+// Hamburger menu
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>{
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(link=>{
+  link.addEventListener('click',()=>{
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
 </script>
 </body>
 </html>
